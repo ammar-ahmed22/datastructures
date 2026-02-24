@@ -37,14 +37,18 @@ private:
     }
   }
 
+  bool isEmpty() {
+    return size == 0;
+  }
+
 public:
   Array(int c) : size(0), cap(utils::min(2, c)) { data = new T[cap]; }
   Array() : size(0), cap(2) { data = new T[cap]; }
   ~Array() { delete[] data; }
 
-  int length() { return size; }
+  int length() const { return size; }
 
-  int capacity() { return cap; }
+  int capacity() const { return cap; }
 
   void append(const T &value) {
     data[size] = value;
@@ -68,6 +72,24 @@ public:
     if (size <= cap / 4) {
       resize(utils::max(2, cap / 2));
     }
+  }
+
+  T pop_front() {
+    if (isEmpty()) {
+      throw std::out_of_range("cannot call pop_front() on empty array!");
+    }
+    T value = data[size - 1];
+    delete_at(size - 1);
+    return value;
+  }
+
+  T pop_back() {
+    if (isEmpty()) {
+      throw std::out_of_range("cannot call pop_back() on empty array!");
+    }
+    T value = data[0];
+    delete_at(0);
+    return value;
   }
 
   int find_index(const T& value) const {

@@ -79,11 +79,32 @@ static void test_find_index() {
   ASSERT_EQ(arr.find_index(3), 2);
 }
 
+static void test_pop_back() {
+  Array<int> arr;
+  arr.append(1);
+  arr.append(2);
+
+  ASSERT_TRUE(arr.pop_back() == 1);
+  ASSERT_TRUE(arr.pop_back() == 2);
+  ASSERT_THROW(arr.pop_back());
+}
+static void test_pop_front() {
+  Array<int> arr;
+  arr.append(1);
+  arr.append(2);
+
+  ASSERT_TRUE(arr.pop_front() == 2);
+  ASSERT_TRUE(arr.pop_front() == 1);
+  ASSERT_THROW(arr.pop_back());
+}
+
 int main() {
   test_append();
   test_delete_at();
   test_indexing();
   test_find_index();
+  test_pop_back();
+  test_pop_front();
 
   if (test::fails() == 0) {
     cout << "All tests passed" << endl;
